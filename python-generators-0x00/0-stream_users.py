@@ -1,38 +1,37 @@
 #!/usr/bin/python3
 """
-0-stream_users.py
-Generator function that streams rows from user_data one by one.
+Module: 0-stream_users
+Objective: Create a generator that streams rows from an SQL database one by one.
 """
 
 import mysql.connector
-from mysql.connector import Error
 
 
 def stream_users():
     """
-    Generator that yields rows from user_data table as dictionaries.
-    Uses only one loop.
+    Generator function that streams rows from user_data table one by one.
+    Yields:
+        tuple: A single row from the user_data table.
     """
     try:
+        # Connect directly to ALX_prodev database
         connection = mysql.connector.connect(
             host="localhost",
-            user="root",       # change if needed
-            password="",       # supply password if needed
+            user="root",          # update if using another MySQL user
+            password="root",      # update with your MySQL password
             database="ALX_prodev"
         )
 
-        cursor = connection.cursor(dictionary=True)
+        cursor = connection.cursor()
         cursor.execute("SELECT * FROM user_data;")
 
+        # Yield rows one by one
         for row in cursor:
-            # row is already a dictionary since dictionary=True
             yield row
 
-    except Error as e:
-        print(f"Error streaming users: {e}")
+        cursor.close()
+        connection.close()
 
-    finally:
-        if cursor:
-            cursor.close()
-        if connection:
-            connection.close()
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return
