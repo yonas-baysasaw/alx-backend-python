@@ -20,7 +20,7 @@ if connection:
             print("Database ALX_prodev is present")
         cursor.close()
 
-        # ✅ Stream rows using generator
+
         print("\nStreaming rows one by one:")
         for row in seed.stream_rows(connection):
             print(row)
