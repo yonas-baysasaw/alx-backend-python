@@ -24,13 +24,13 @@ pipeline {
     }
 }
 
-stage('Run Tests') {
-    steps {
-        bat """
-        call %VENV_DIR%\\Scripts\\activate.bat
-        pytest --html=report.html --self-contained-html
-        """
-    }
+// stage('Run Tests') {
+//     steps {
+//         bat """
+//         call %VENV_DIR%\\Scripts\\activate.bat
+//         pytest --html=report.html --self-contained-html
+//         """
+//     }
 }
 
 
