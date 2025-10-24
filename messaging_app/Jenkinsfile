@@ -41,8 +41,4 @@ pipeline {
             }
         }
     }
-
-    triggers {
-        // No automatic trigger; manual start only
-    }
 }
