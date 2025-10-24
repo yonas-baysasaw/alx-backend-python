@@ -2,59 +2,95 @@ pipeline {
     agent any
 
     environment {
-        VENV_DIR = 'venv'
+        GITHUB_CREDENTIALS = credentials('github-credentials')
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    credentialsId: 'github_creds',
-                    url: 'https://github.com/yonas-baysasaw/alx-backend-python.git'
+                git branch: 'main', url: pipeline {
+    agent any
+
+    environment {
+        GITHUB_CREDENTIALS = credentials('github-credentials')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/yourusername/alx-backend-python.git', credentialsId: 'github-credentials'
             }
         }
 
-stage('Install Dependencies') {
-    steps {
-        bat 'python -m venv venv'
-        bat 'call venv\\Scripts\\activate.bat && pip install -r messaging_app\\requirements.txt'
-    }
-}
-
-
-// stage('Run Tests') {
-//     steps {
-//         bat """
-//         call %VENV_DIR%\\Scripts\\activate.bat
-//         pytest --html=report.html --self-contained-html
-//         """
-//     }
-// }
-
-
-//         stage('Publish Report') {
-//             steps {
-//                 publishHTML(target: [
-//                     reportDir: '.',
-//                     reportFiles: 'report.html',
-//                     reportName: 'Test Report',
-//                     allowMissing: false,
-//                     alwaysLinkToLastBuild: true,
-//                     keepAll: true
-//                 ])
-//             }
-//         }
-  stage('Run Tests') {
+        stage('Install Dependencies') {
             steps {
-                sh '. venv/bin/activate && pytest tests --junitxml=report.xml'
+                dir('messaging_app') {
+                    bat 'python -m venv venv'
+                    bat 'call venv\\Scripts\\activate.bat && pip install -r requirements.txt'
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                dir('messaging_app') {
+                    bat 'call venv\\Scripts\\activate.bat && pytest tests --junitxml=report.xml'
+                }
             }
         }
 
         stage('Publish Report') {
             steps {
-                junit 'report.xml'
+                dir('messaging_app') {
+                    junit 'report.xml'
+                }
             }
         }
     }
 
+    post {
+        always {
+            dir('messaging_app') {
+                archiveArtifacts artifacts: 'report.xml', allowEmptyArchive: true
+            }
+        }
+    }
+}
+
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                dir('messaging_app') {
+                    bat 'python -m venv venv'
+                    bat 'call venv\\Scripts\\activate.bat && pip install -r requirements.txt'
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                dir('messaging_app') {
+                    bat 'call venv\\Scripts\\activate.bat && pytest tests --junitxml=report.xml'
+                }
+            }
+        }
+
+        stage('Publish Report') {
+            steps {
+                dir('messaging_app') {
+                    junit 'report.xml'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            dir('messaging_app') {
+                archiveArtifacts artifacts: 'report.xml', allowEmptyArchive: true
+            }
+        }
+    }
 }
