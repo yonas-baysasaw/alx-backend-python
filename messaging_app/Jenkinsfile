@@ -47,8 +47,4 @@ stage('Run Tests') {
         }
     }
 
-
-    // triggers {
-    //     // Manual trigger only — no automatic build
-    }
 }
