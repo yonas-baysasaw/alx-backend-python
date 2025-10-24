@@ -14,15 +14,15 @@ pipeline {
             }
         }
 
- stage('Install Dependencies') {
-    steps {
-        bat """
-        python -m venv %VENV_DIR%
-        call %VENV_DIR%\\Scripts\\activate.bat
-        pip install -r requirements.txt pytest pytest-html
-        """
-    }
-}
+//  stage('Install Dependencies') {
+//     steps {
+//         bat """
+//         python -m venv %VENV_DIR%
+//         call %VENV_DIR%\\Scripts\\activate.bat
+//         pip install -r requirements.txt pytest pytest-html
+//         """
+//     }
+// }
 
 // stage('Run Tests') {
 //     steps {
@@ -34,20 +34,20 @@ pipeline {
 // }
 
 
-        stage('Publish Report') {
-            steps {
-                publishHTML([allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: '.',
-                    reportFiles: 'report.html',
-                    reportName: 'Test Report'])
-            }
-        }
-    }
+        // stage('Publish Report') {
+        //     steps {
+        //         publishHTML([allowMissing: false,
+        //             alwaysLinkToLastBuild: true,
+        //             keepAll: true,
+        //             reportDir: '.',
+        //             reportFiles: 'report.html',
+        //             reportName: 'Test Report'])
+        //     }
+        // }
+    // }
 
 
     // triggers {
     //     // Manual trigger only — no automatic build
-    // }
+    }
 }
