@@ -62,7 +62,7 @@ pipeline {
         }
     }
 
-    triggers {
-        // Manual trigger only — no automatic build
-    }
+    // triggers {
+    //     // Manual trigger only — no automatic build
+    // }
 }
