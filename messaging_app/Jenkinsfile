@@ -25,27 +25,27 @@ pipeline {
     }
 }
 
-// stage('Run Tests') {
-//     steps {
-//         bat """
-//         call %VENV_DIR%\\Scripts\\activate.bat
-//         pytest --html=report.html --self-contained-html
-//         """
-//     }
-// }
+stage('Run Tests') {
+    steps {
+        bat """
+        call %VENV_DIR%\\Scripts\\activate.bat
+        pytest --html=report.html --self-contained-html
+        """
+    }
+}
 
 
-        // stage('Publish Report') {
-        //     steps {
-        //         publishHTML([allowMissing: false,
-        //             alwaysLinkToLastBuild: true,
-        //             keepAll: true,
-        //             reportDir: '.',
-        //             reportFiles: 'report.html',
-        //             reportName: 'Test Report'])
-        //     }
-        // }
-    // }
+        stage('Publish Report') {
+            steps {
+                publishHTML([allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: '.',
+                    reportFiles: 'report.html',
+                    reportName: 'Test Report'])
+            }
+        }
+    }
 
 
     // triggers {
