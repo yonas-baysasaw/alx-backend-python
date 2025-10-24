@@ -1,0 +1,63 @@
+pipeline {
+    agent any
+
+    environment {
+        VENV_DIR = 'venv'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    credentialsId: 'github_creds',
+                    url: 'https://github.com/yonas-baysasaw/alx-backend-python.git'
+            }
+        }
+
+ stage('Install Dependencies') {
+    steps {
+        bat """
+        python -m ensurepip --upgrade
+        python -m venv %VENV_DIR%
+        call %VENV_DIR%\\Scripts\\activate.bat
+        pip install -r requirements.txt pytest pytest-html
+        """
+    }
+}
+
+// stage('Run Tests') {
+//     steps {
+//         bat """
+//         call %VENV_DIR%\\Scripts\\activate.bat
+//         pytest --html=report.html --self-contained-html
+//         """
+//     }
+// }
+
+
+//         stage('Publish Report') {
+//             steps {
+//                 publishHTML(target: [
+//                     reportDir: '.',
+//                     reportFiles: 'report.html',
+//                     reportName: 'Test Report',
+//                     allowMissing: false,
+//                     alwaysLinkToLastBuild: true,
+//                     keepAll: true
+//                 ])
+//             }
+//         }
+  stage('Run Tests') {
+            steps {
+                sh '. venv/bin/activate && pytest tests --junitxml=report.xml'
+            }
+        }
+
+        stage('Publish Report') {
+            steps {
+                junit 'report.xml'
+            }
+        }
+    }
+
+}
