@@ -31,7 +31,7 @@ pipeline {
 //         pytest --html=report.html --self-contained-html
 //         """
 //     }
-}
+// }
 
 
         stage('Publish Report') {
