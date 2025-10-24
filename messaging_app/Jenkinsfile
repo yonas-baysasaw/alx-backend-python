@@ -14,16 +14,13 @@ pipeline {
             }
         }
 
- stage('Install Dependencies') {
+stage('Install Dependencies') {
     steps {
-        bat """
-        python -m ensurepip --upgrade
-        python -m venv %VENV_DIR%
-        call %VENV_DIR%\\Scripts\\activate.bat
-        pip install -r requirements.txt pytest pytest-html
-        """
+        bat 'python -m venv venv'
+        bat 'call venv\\Scripts\\activate.bat && pip install -r messaging_app\\requirements.txt'
     }
 }
+
 
 // stage('Run Tests') {
 //     steps {
