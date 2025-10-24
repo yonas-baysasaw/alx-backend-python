@@ -14,15 +14,15 @@ pipeline {
             }
         }
 
-//  stage('Install Dependencies') {
-//     steps {
-//         bat """
-//         python -m venv %VENV_DIR%
-//         call %VENV_DIR%\\Scripts\\activate.bat
-//         pip install -r requirements.txt pytest pytest-html
-//         """
-//     }
-// }
+ stage('Install Dependencies') {
+    steps {
+        bat """
+        python -m venv %VENV_DIR%
+        call %VENV_DIR%\\Scripts\\activate.bat
+        pip install -r requirements.txt pytest pytest-html
+        """
+    }
+}
 
 // stage('Run Tests') {
 //     steps {
