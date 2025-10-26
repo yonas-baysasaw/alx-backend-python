@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -euo pipefail
+
+command -v minikube >/dev/null 2>&1 || { echo "❌ Minikube not found. Please install it first."; exit 1; }
+
+minikube start --driver=docker
+
+echo "the below is the cluster info"
+
+minikube kubectl cluster-info
+
+echo "The below list are the running pods"
+# kubectl get pods
+minikube kubectl -- get pods --all-namespaces
+
+echo "The below are the running nodes"
+
+minikube kubectl -- get nodes
