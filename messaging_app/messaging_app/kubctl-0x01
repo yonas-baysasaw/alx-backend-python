@@ -1,34 +1,25 @@
 #!/bin/bash
+# Script to scale Django app to 3 replicas, test load, and monitor usage
 
-# =========================================
-# 🧱 Objective: Scale, Test & Monitor Django App on Kubernetes
-# =========================================
+set -e  # exit if any command fails
 
-DEPLOYMENT_NAME="messaging-app-deployment"
-SERVICE_NAME="messaging-app-service"
-NAMESPACE="default"
+DEPLOYMENT_NAME=django-messaging
+SERVICE_NAME=django-service
+NAMESPACE=default
 
-echo "🚀 Scaling $DEPLOYMENT_NAME to 3 replicas..."
-kubectl scale deployment $DEPLOYMENT_NAME --replicas=3
+echo "=== Scaling $DEPLOYMENT_NAME to 3 replicas ==="
+kubectl scale deployment "$DEPLOYMENT_NAME" --replicas=3
 
-echo
-echo "⏳ Waiting for pods to be ready..."
-kubectl rollout status deployment/$DEPLOYMENT_NAME
+echo "=== Verifying running pods ==="
+kubectl get pods -l app=django-messaging -n "$NAMESPACE"
 
-echo
-echo "✅ Current Pods:"
-kubectl get pods -l app=messaging-app
+echo "=== Getting Minikube IP and exposing NodePort for testing ==="
+MINIKUBE_IP=$(minikube ip)
+NODE_PORT=$(kubectl get svc "$SERVICE_NAME" -n "$NAMESPACE" -o=jsonpath='{.spec.ports[0].nodePort}')
 
-echo
-echo "🌐 Getting Service URL..."
-SERVICE_URL=$(minikube service $SERVICE_NAME --url)
-echo "Your app is accessible at: $SERVICE_URL"
+echo "=== Load testing with wrk ==="
+echo "Target: http://$MINIKUBE_IP:$NODE_PORT"
+wrk -t4 -c100 -d15s "http://$MINIKUBE_IP:$NODE_PORT"
 
-echo
-echo "💥 Performing load test using wrk..."
-echo "Running 15s test with 2 threads and 10 connections..."
-wrk -t2 -c10 -d15s $SERVICE_URL
-
-echo
-echo "📊 Monitoring resource usage..."
-kubectl top pods
+echo "=== Monitoring resource usage ==="
+kubectl top pods -n "$NAMESPACE"

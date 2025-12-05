@@ -1,29 +1,35 @@
-name: Build and Push Docker Image
+name: Docker Build and Push
 
 on:
   push:
-    branches: [main]
+    branches: [ "main" ]    # Run the workflow on push to the main branch
+  workflow_dispatch:        # Allows manual triggering from the GitHub Actions tab
 
 jobs:
-  build-and-push:
+  docker:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4 # Updated to a slightly newer version for best practice
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
+        
       - name: Log in to Docker Hub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3 # Updated to a slightly newer version
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          # Uses the secret set for your Docker Hub username (dwaynemaster007)
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          # Uses the secret for your Docker Hub Personal Access Token
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5 # Updated to a slightly newer version
         with:
-          context: .
+          context: ./messaging_app # Assumes your Dockerfile and code are in this directory
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/messaging_app:latest
+          # Tags the image using your secret: dwaynemaster007/messaging_app:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/messaging_app:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

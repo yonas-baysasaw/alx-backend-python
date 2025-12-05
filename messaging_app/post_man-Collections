@@ -1,143 +1,80 @@
 {
 	"info": {
-		"_postman_id": "64a2f013-37f1-419b-ac81-b223ce5b05ef",
-		"name": "post_man-Collections",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "31386970"
+		"_postman_id": "a1b2c3d4-e5f6-7890-1234-abcdef123456",
+		"name": "ALX Messaging App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "http://localhost:8000/api/conversations/",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU5MDE2MTM3LCJpYXQiOjE3NTkwMDg5MzcsImp0aSI6IjU3NGVmMTgxZjNmZjRiMjRiMWZlZDc1MmRkYmEzNjc1IiwidXNlcl9pZCI6IjJjZWFhNTk0LTk0NTctNGM0Zi1hZmJmLTViMjA4NzgxNDA3MCJ9.JWYd27siE3s2HTsD7sCRldzsnISPdp6UHAlUEPWQkFU",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "http://localhost:8000/api/conversations/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"conversations",
-						""
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "http://localhost:8000/api/conversations/",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Token a3f67adb-bc1b-4546-ad0c-ad6653e55c84",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:8000/api/conversations/?participants_id=581d3020-a9d5-4f76-8977-a85d1ea9552b",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"conversations",
-								""
-							],
-							"query": [
-								{
-									"key": "participants_id",
-									"value": "581d3020-a9d5-4f76-8977-a85d1ea9552b"
-								}
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": null,
-					"header": [
-						{
-							"key": "Date",
-							"value": "Sat, 27 Sep 2025 20:57:57 GMT"
-						},
-						{
-							"key": "Server",
-							"value": "WSGIServer/0.2 CPython/3.13.2"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						},
-						{
-							"key": "Vary",
-							"value": "Accept"
-						},
-						{
-							"key": "Allow",
-							"value": "GET, POST, HEAD, OPTIONS"
-						},
-						{
-							"key": "X-Frame-Options",
-							"value": "DENY"
-						},
-						{
-							"key": "Content-Length",
-							"value": "620"
-						},
-						{
-							"key": "X-Content-Type-Options",
-							"value": "nosniff"
-						},
-						{
-							"key": "Referrer-Policy",
-							"value": "same-origin"
-						},
-						{
-							"key": "Cross-Origin-Opener-Policy",
-							"value": "same-origin"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"count\": 3,\n    \"next\": null,\n    \"previous\": null,\n    \"results\": [\n        {\n            \"conversation_id\": \"12613a27-77c8-4e6a-80e5-2e5bdbfa9409\",\n            \"participant\": [\n                \"davisroy\"\n            ],\n            \"created_at\": \"2025-09-27T02:31:22.447809Z\",\n            \"participants_id\": [\n                \"a3f67adb-bc1b-4546-ad0c-ad6653e55c84\"\n            ]\n        },\n        {\n            \"conversation_id\": \"54d415f4-b206-4d75-9783-55906d652bc2\",\n            \"participant\": [\n                \"davisroy\"\n            ],\n            \"created_at\": \"2025-09-27T02:31:22.659490Z\",\n            \"participants_id\": [\n                \"a3f67adb-bc1b-4546-ad0c-ad6653e55c84\"\n            ]\n        },\n        {\n            \"conversation_id\": \"37335428-579a-4a86-9dc3-a3fce1d5b865\",\n            \"participant\": [\n                \"freemanrhonda\"\n            ],\n            \"created_at\": \"2025-09-27T02:31:22.859875Z\",\n            \"participants_id\": [\n                \"581d3020-a9d5-4f76-8977-a85d1ea9552b\"\n            ]\n        }\n    ]\n}"
-				}
-			]
-		},
-		{
-			"name": "http://localhost:8000/api/token/",
+			"name": "1. Register New User",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
-						"key": "Authorization",
-						"value": "",
-						"type": "text"
+						"key": "Content-Type",
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \n        \"jasonstevenson\"\n    ,\n    \"password\": \n        \"password123\"\n    \n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					"raw": "{\n    \"username\": \"testuser2\",\n    \"password\": \"strongpassword123\",\n    \"email\": \"testuser2@example.com\",\n    \"first_name\": \"Test\",\n    \"last_name\": \"UserTwo\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/token/",
+					"raw": "http://127.0.0.1:8000/api/register/",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Login and Get JWT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// This script runs after the request is sent.",
+							"// It automatically saves the access token to a collection variable.",
+							"if (pm.response.code === 200) {",
+							"    pm.collectionVariables.set(\"access_token\", pm.response.json().access);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"testuser2\",\n    \"password\": \"strongpassword123\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/token/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8000",
 					"path": [
@@ -150,32 +87,143 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8000/api/",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "3. Create Conversation",
 			"request": {
-				"method": "GET",
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
 				"header": [
 					{
-						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzU5MDE2MTM3LCJpYXQiOjE3NTkwMDg5MzcsImp0aSI6IjU3NGVmMTgxZjNmZjRiMjRiMWZlZDc1MmRkYmEzNjc1IiwidXNlcl9pZCI6IjJjZWFhNTk0LTk0NTctNGM0Zi1hZmJmLTViMjA4NzgxNDA3MCJ9.JWYd27siE3s2HTsD7sCRldzsnISPdp6UHAlUEPWQkFU",
-						"type": "text"
+						"key": "Content-Type",
+						"value": "application/json"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \n        \"jasonstevenson\"\n    ,\n    \"password\": \n        \"password123\"\n    \n}"
+					"raw": "{\n    \"participant_ids\": [\n        \"<REPLACE_WITH_A_VALID_USER_UUID>\"\n    ]\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8000/api/",
+					"raw": "http://127.0.0.1:8000/api/conversations/",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"127",
+						"0",
+						"0",
+						"1"
 					],
 					"port": "8000",
 					"path": [
 						"api",
+						"conversations",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Send Message",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"conversation\": \"<REPLACE_WITH_A_VALID_CONVERSATION_UUID>\",\n    \"message_body\": \"Hello from Postman!\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/messages/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"messages",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Fetch Conversations (Authorized)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/conversations/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"conversations",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Fetch Conversations (Unauthorized Test)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/conversations/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"conversations",
 						""
 					]
 				}

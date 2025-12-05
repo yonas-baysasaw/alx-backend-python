@@ -1,21 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: messaging-app-green
+  name: django-green
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: messaging-app
-      version: green
+      app: django-green
   template:
     metadata:
       labels:
-        app: messaging-app
-        version: green
+        app: django-green
     spec:
       containers:
-        - name: messaging-app
-          image: messaging_app_image:latest
-          ports:
-            - containerPort: 8000
+      - name: django-green
+        image: your-dockerhub-username/django-messaging:2.0
+        ports:
+        - containerPort: 8000

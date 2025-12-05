@@ -1,6 +1,2 @@
 minikube addons enable ingress
-kubectl get pods -n kube-system | grep ingress
-kubectl apply -f ingress.yaml
-kubectl get ingress
-minikube ip
-sudo nano /etc/hosts
+kubectl apply -f messaging_app/ingress.yaml

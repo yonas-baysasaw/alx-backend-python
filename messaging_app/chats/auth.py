@@ -1,41 +1,14 @@
-from .models import User
-from rest_framework import authentication
-from rest_framework.exceptions import AuthenticationFailed
+from rest_framework import generics, permissions
+from django.contrib.auth import get_user_model
+from .serializers import UserSerializer
 
+User = get_user_model()
 
-
-class CustomAPI(authentication.BaseAuthentication):
-    
-    
-    def authenticate(self, request):
-        auth_header = request.headers.get("Authorization")
-        
-        if not auth_header:
-            return None
-        
-       
-        
-        try:
-            prefix , key  = auth_header.split()
-           
-            
-        except ValueError:
-            raise AuthenticationFailed("Invalid Header")
-
-        
-        if  prefix.lower() != "token":
-            return None
-        
-        try:
-            user = User.objects.get(id = key)
-        
-        except ValueError:
-            raise AuthenticationFailed("Invalid User Key")
-        
-        return (user , None)
-    
-    
-    def authenticate_header(self, request):
-        return "Token"
-        
-        
+class RegisterView(generics.CreateAPIView):
+    """
+    API view for registering a new user.
+    This endpoint is open to anyone.
+    """
+    queryset = User.objects.all()
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = UserSerializer

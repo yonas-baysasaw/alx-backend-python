@@ -1,19 +1,20 @@
 #!/bin/bash
+# Script to start a local Kubernetes cluster with Minikube and verify it is running.
 
-set -euo pipefail
+set -e  # Exit on error
 
-command -v minikube >/dev/null 2>&1 || { echo "❌ Minikube not found. Please install it first."; exit 1; }
+echo "=== Checking if Minikube is installed ==="
+if ! command -v minikube &> /dev/null; then
+    echo "Minikube is not installed. Please install it first."
+    echo "Linux install guide: https://minikube.sigs.k8s.io/docs/start/"
+    exit 1
+fi
 
-minikube start --driver=docker
+echo "=== Starting Minikube cluster ==="
+minikube start
 
-echo "the below is the cluster info"
+echo "=== Verifying Kubernetes cluster status ==="
+kubectl cluster-info
 
-minikube kubectl cluster-info
-
-echo "The below list are the running pods"
-# kubectl get pods
-minikube kubectl -- get pods --all-namespaces
-
-echo "The below are the running nodes"
-
-minikube kubectl -- get nodes
+echo "=== Listing all pods in all namespaces ==="
+kubectl get pods --all-namespaces

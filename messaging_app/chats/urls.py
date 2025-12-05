@@ -1,21 +1,19 @@
+from django.urls import path, include
 from rest_framework_nested import routers
-from .views import *
-from django.urls import include ,path
+from .views import ConversationViewSet, MessageViewSet
 
-app_name = "chats"
-
+# The main router for the top-level resource (Conversations)
 router = routers.DefaultRouter()
+router.register(r'conversations', ConversationViewSet, basename='conversation')
 
-router.register("conversations" , ConversationViewSet , basename=ConversationViewSet.name)
+# Create a nested router for Messages, registered under Conversations.
+# The `lookup='conversation'` tells the router that the URL parameter for the
+# conversation's ID will be named 'conversation_pk'.
+conversations_router = routers.NestedDefaultRouter(router, r'conversations', lookup='conversation')
+conversations_router.register(r'messages', MessageViewSet, basename='conversation-messages')
 
-message_conversation_router = routers.NestedDefaultRouter(router,r'conversations' , lookup = "conversation")
-
-message_conversation_router.register(r"messages" , MessageViewSet , basename="conversation-messages")
-
-
-
+# The API URLs are now nested.
 urlpatterns = [
-    path("" , include(router.urls)),
-    path("" , include(message_conversation_router.urls))
-    
+    path('', include(router.urls)),
+    path('', include(conversations_router.urls)),
 ]
